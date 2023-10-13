@@ -1,27 +1,31 @@
 package br.com.felipedias.ServiceRecord.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.UUID;
+
 
 
 @Entity
 @Table(name = "tb_service")
 @Data
-public class Record {
+@AllArgsConstructor
+@NoArgsConstructor
+public class JobRecord {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String description;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-    private Date deliveryDate;
+    private Date expectedEndDate;
     private String status;
 
 }

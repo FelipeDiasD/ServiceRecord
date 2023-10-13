@@ -28,6 +28,6 @@ public class Customer {
     private Address address;
 
     @OneToMany
-    private List<Record> servicos;
+    private List<JobRecord> servicos;
 
 }
