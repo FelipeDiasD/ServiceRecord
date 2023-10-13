@@ -1,7 +1,9 @@
 package br.com.felipedias.ServiceRecord.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +12,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_customer")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -24,6 +28,6 @@ public class Customer {
     private Address address;
 
     @OneToMany
-    private List<Service> servicos;
+    private List<Record> servicos;
 
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_service")
 @Data
-public class Service {
+public class Record {
 
     @Id
     @GeneratedValue(generator = "UUID")

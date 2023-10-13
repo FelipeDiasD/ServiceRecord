@@ -1,6 +1,7 @@
 package br.com.felipedias.ServiceRecord.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_address")
 @Data
+@AllArgsConstructor
 public class Address {
 
     @Id
