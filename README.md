@@ -5,28 +5,29 @@ Uma aplicação para registrar serviços de TI
 
 ## Table of contents
 
-- [Visão geral](#overview)
-    - [A applicação](#the-application)
+- [Visão geral](#visão-geral)
+    - [A applicação](#a-aplicação)
     - [Screenshot](#screenshot)
     - [Links](#links)
-- [Meu desenvolvimento](#my-process)
+- [Meu desenvolvimento](#meu-desenvolvimento)
     - [Ferramentas utilizadas](#built-with)
-    - [O que aprendi](#what-i-learned)
-    - [Próximos passos](#continued-development)
-    - [Recursos úteis](#useful-resources)
-- [Autor](#author)
+    - [O que aprendi](#o-que-aprendi)
+    - [Próximos passos](#próximos-passos)
+    - [Recursos úteis](#recursos-úteis)
+- [Autor](#autor)
 
 
-## Overview
+## Visão geral
 Essa aplicação foi construída com o simples propósito de registrar os serviços realizados
 por um departamento ou técnico de TI, visando facilitar o histórico de seus clientes.
 
 
 
-### The application
+### A aplicação
 Uma aplicação web desenvolvida utilizando Java e o framework Springboot.
 
-
+#### Diagrama preliminar 
+![ServiceRecordDiagram](/src/main/resources/assets/ServiceRecordDiagram.drawio.png)
 
 
 ### Screenshot
@@ -36,8 +37,9 @@ TODO
 
 - URL do deploy: [Em breve](https://your-live-site-url.com)
 
-## My process
+## Meu desenvolvimento
 
+  
 ### Built with
 
 - Java 17
@@ -46,32 +48,21 @@ TODO
 
 
 
-### What I learned
+### O que aprendi
 
-Nesse projeto acompanhei a 
 
 ```java
-  
-@DeleteMapping("/customers/{id}")
-public void findAllCustomers(@PathVariable Integer id){
-        try{
-        customerRepository.deleteById(id);
-        }
-        catch (Exception e){
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-      }
 
-}
 ```
 
 
-### Continued development
+### Próximos passos
 
 
 
-### Useful resources
+### Recursos úteis
 
-## Author
+## Autor
 
 - Website(GitHub) - [Felipe Dias](https://www.your-site.com)
 - LinkedIn - [Felipe Dias](https://www.linkedin.com/in/felipe-dsprado/)

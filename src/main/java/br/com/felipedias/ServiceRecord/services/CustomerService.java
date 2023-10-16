@@ -3,6 +3,8 @@ package br.com.felipedias.ServiceRecord.services;
 import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
 import br.com.felipedias.ServiceRecord.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,5 +22,25 @@ public class CustomerService {
 
     public List<Customer> findCustomerByName(String name){
         return customerRepository.findByName(name);
+    }
+
+    public ResponseEntity<Customer> addCustomer(Customer customer){
+
+        //Validations
+        //IS this customer already registered?
+        //There is obligatory some field missing?
+        Customer receivedCustomer = customerRepository.save(customer);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(receivedCustomer);
+    }
+
+    public ResponseEntity<Customer> updateCustomer(Customer customer){
+
+        //Validations
+        //IS this customer already registered?
+        //There is obligatory some field missing?
+        var targetCustomer = findCustomerByName(customer.getName());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(customer);
     }
 }

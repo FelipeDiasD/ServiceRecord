@@ -24,4 +24,10 @@ public class JobRecordService {
         Optional<JobRecord> foundRecord = recordRepository.findById(id);
         return foundRecord.get();
     }
+
+    public JobRecord insertNewRecord(JobRecord obj){
+        return recordRepository.save(obj);
+    }
+
+
 }

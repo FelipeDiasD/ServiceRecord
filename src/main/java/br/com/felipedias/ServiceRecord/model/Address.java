@@ -3,6 +3,7 @@ package br.com.felipedias.ServiceRecord.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class Address {
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "id")
-    private UUID id;
+    private Long id;
 
     @OneToOne(mappedBy = "address")
     private Customer customer;

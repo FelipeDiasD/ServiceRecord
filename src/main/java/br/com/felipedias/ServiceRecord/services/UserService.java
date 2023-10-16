@@ -23,10 +23,10 @@ public class UserService {
     public ResponseEntity<User> create(@RequestBody User user) throws Exception{
 
         var foundUser = this.userRepository.findByUsername(user.getUsername());
-    /*   if(foundUser != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
-        } */
+
         var userCreated = this.userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
+
+
 }

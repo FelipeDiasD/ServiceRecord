@@ -4,15 +4,12 @@ import br.com.felipedias.ServiceRecord.model.JobRecord;
 import br.com.felipedias.ServiceRecord.services.JobRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/Records")
+@RequestMapping("/records")
 public class JobRecordController {
 
     @Autowired
@@ -28,6 +25,13 @@ public class JobRecordController {
     @GetMapping("/{id}")
     public ResponseEntity<JobRecord> findRecordById(@PathVariable Long id){
         JobRecord returnedObj = recordService.findRecordById(id);
+        return ResponseEntity.ok().body(returnedObj);
+    }
+
+    @PostMapping
+    public ResponseEntity<JobRecord> insertNewRecord(@RequestBody JobRecord jobRecordObj){
+
+       JobRecord returnedObj = recordService.insertNewRecord(jobRecordObj);
         return ResponseEntity.ok().body(returnedObj);
     }
 
