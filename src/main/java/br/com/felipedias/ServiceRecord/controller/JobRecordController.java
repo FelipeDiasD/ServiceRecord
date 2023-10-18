@@ -35,4 +35,15 @@ public class JobRecordController {
         return ResponseEntity.ok().body(returnedObj);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<JobRecord> updateExistingRecord(@RequestBody JobRecord jobRecord, @PathVariable Long id){
+
+        JobRecord updatedRecord = recordService.updateRecord(jobRecord, id);
+
+        return ResponseEntity.ok().body(updatedRecord);
+    }
+
+
+
+
 }

@@ -34,12 +34,18 @@ public class CustomerService {
         return ResponseEntity.status(HttpStatus.CREATED).body(receivedCustomer);
     }
 
-    public ResponseEntity<Customer> updateCustomer(Customer customer){
+    public ResponseEntity<Customer> updateCustomer(Customer customer, UUID id){
 
         //Validations
-        //IS this customer already registered?
+        //Is this customer already registered?
         //There is obligatory some field missing?
-        var targetCustomer = findCustomerByName(customer.getName());
+
+        //Find desired customer
+        var targetCustomer = customerRepository.findById(id);
+
+        //Verify fields for change
+
+        //Modify existing customer with information
 
         return ResponseEntity.status(HttpStatus.CREATED).body(customer);
     }

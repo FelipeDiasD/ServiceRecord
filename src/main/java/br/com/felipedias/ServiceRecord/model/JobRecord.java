@@ -26,7 +26,7 @@ public class JobRecord {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-    private Date expectedEndDate;
+    private LocalDateTime expectedEndDate;
     private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)

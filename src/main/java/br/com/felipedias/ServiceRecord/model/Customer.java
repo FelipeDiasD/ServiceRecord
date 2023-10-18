@@ -1,9 +1,11 @@
 package br.com.felipedias.ServiceRecord.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,8 +21,11 @@ public class Customer {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
+
+    @NonNull
     private String name;
 
+    @NonNull
     private String email;
 
 
@@ -28,7 +33,8 @@ public class Customer {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany
-    private List<JobRecord> servicos;
+    @NonNull
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<JobRecord> jobs;
 
 }

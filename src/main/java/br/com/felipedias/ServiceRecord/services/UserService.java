@@ -23,7 +23,6 @@ public class UserService {
     public ResponseEntity<User> create(@RequestBody User user) throws Exception{
 
         var foundUser = this.userRepository.findByUsername(user.getUsername());
-
         var userCreated = this.userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }

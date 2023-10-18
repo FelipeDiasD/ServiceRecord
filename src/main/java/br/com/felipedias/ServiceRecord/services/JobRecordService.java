@@ -29,5 +29,17 @@ public class JobRecordService {
         return recordRepository.save(obj);
     }
 
+    public JobRecord updateRecord(JobRecord jobRecordObj, Long id) {
 
+        var targetJobRecord = recordRepository.findById(id).get();
+
+        if (jobRecordObj.getJobStatus() != null) {
+            targetJobRecord.setJobStatus(jobRecordObj.getJobStatus());
+        }
+        else if (jobRecordObj.getDescription() != null) {
+            targetJobRecord.setDescription(jobRecordObj.getDescription());
+        }
+
+       return recordRepository.save(targetJobRecord);
+    }
 }

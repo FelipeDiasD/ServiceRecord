@@ -14,8 +14,7 @@ import java.util.List;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+
 
     @Autowired
     private CustomerService customerService;
@@ -27,8 +26,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(foundCustomers);
     }
     @PostMapping
-    public Customer createNewCustomer(@RequestBody Customer customer){
-
-        return this.customerRepository.save(customer);
+    public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer){
+        return this.customerService.addCustomer(customer);
     }
 }

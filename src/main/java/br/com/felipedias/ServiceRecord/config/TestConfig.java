@@ -28,7 +28,7 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User mainUser = new User(null, "Roberto", "GostoDeBiscoitos");
+/*        User mainUser = new User(null, "Roberto", "GostoDeBiscoitos");
 
         JobRecord firstJob = new JobRecord();
         List<JobRecord> jobs = new ArrayList<>();
@@ -40,7 +40,7 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.save(mainUser);
         recordRepository.save(firstJob);
-        customerRepository.save(firstCustomer);
+        customerRepository.save(firstCustomer);*/
 
     }
 }
