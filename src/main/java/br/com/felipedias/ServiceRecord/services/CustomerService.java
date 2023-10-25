@@ -2,6 +2,7 @@ package br.com.felipedias.ServiceRecord.services;
 
 import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
 import br.com.felipedias.ServiceRecord.model.Customer;
+import br.com.felipedias.ServiceRecord.model.JobRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,26 @@ public class CustomerService {
         return customerRepository.findByName(name);
     }
 
-    public ResponseEntity<Customer> addCustomer(Customer customer){
+    public ResponseEntity addCustomer(Customer customer){
 
         //Validations
         //IS this customer already registered?
+        var email = customer.getEmail();
+
+        if(customerRepository.findByEmail(email) != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CLIENTE JÁ REGISTRADO NA PLATAFORMA");
+        }
+
+        var jobs = customer.getJobs();
+
+        for(int i = 0; i < jobs.size(); i++){
+            JobRecord job = jobs.get(i);
+            job.setCustomer(customer);
+        }
+
+
+
+
         //There is obligatory some field missing?
         Customer receivedCustomer = customerRepository.save(customer);
 
@@ -36,17 +53,31 @@ public class CustomerService {
 
     public ResponseEntity<Customer> updateCustomer(Customer customer, UUID id){
 
+        //Find desired customer for changes
+        var targetCustomer = customerRepository.findById(id).get();
+
         //Validations
-        //Is this customer already registered?
+
+
         //There is obligatory some field missing?
 
-        //Find desired customer
-        var targetCustomer = customerRepository.findById(id);
+
 
         //Verify fields for change
-
         //Modify existing customer with information
+        if(customer.getName() != null){
+            targetCustomer.setName(customer.getName());
+        }
+        else if (customer.getEmail() != null) {
+            targetCustomer.setEmail(customer.getEmail());
+        }
+        else if(customer.getAddress() != null){
+            targetCustomer.setAddress(customer.getAddress());
+        }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+        customerRepository.save(targetCustomer);
+
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(targetCustomer);
     }
 }

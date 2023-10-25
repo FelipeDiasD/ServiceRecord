@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/customers")
@@ -28,5 +29,10 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer){
         return this.customerService.addCustomer(customer);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable UUID id){
+        return this.customerService.updateCustomer(customer, id);
     }
 }

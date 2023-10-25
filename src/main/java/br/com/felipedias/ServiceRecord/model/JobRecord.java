@@ -1,6 +1,7 @@
 package br.com.felipedias.ServiceRecord.model;
 
 import br.com.felipedias.ServiceRecord.model.enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class JobRecord {
     private LocalDateTime expectedEndDate;
     private String status;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 

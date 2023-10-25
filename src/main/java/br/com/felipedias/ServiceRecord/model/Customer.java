@@ -1,5 +1,6 @@
 package br.com.felipedias.ServiceRecord.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,11 +29,12 @@ public class Customer {
     @NonNull
     private String email;
 
-
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @JsonManagedReference
     @NonNull
     @OneToMany(cascade = CascadeType.ALL)
     private List<JobRecord> jobs;
