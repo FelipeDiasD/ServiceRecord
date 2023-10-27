@@ -5,6 +5,7 @@ import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
 import br.com.felipedias.ServiceRecord.model.Customer;
 import br.com.felipedias.ServiceRecord.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,13 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findAllCustomer(){
         List<Customer> foundCustomers = customerService.findAllCustomers();
         return ResponseEntity.ok().body(foundCustomers);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findCustomerById(@PathVariable UUID id){
+        var foundCustromer = customerService.findCustomerById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(foundCustromer);
     }
     @PostMapping
     public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer){

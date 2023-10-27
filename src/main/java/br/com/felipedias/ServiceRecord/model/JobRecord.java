@@ -31,7 +31,7 @@ public class JobRecord {
     private String status;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Customer customer;
 
     private Status jobStatus;

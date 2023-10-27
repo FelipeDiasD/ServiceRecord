@@ -25,6 +25,10 @@ public class CustomerService {
         return customerRepository.findByName(name);
     }
 
+    public Customer findCustomerById(UUID id){
+        return customerRepository.findById(id).get();
+    }
+
     public ResponseEntity addCustomer(Customer customer){
 
         //Validations

@@ -1,8 +1,11 @@
 package br.com.felipedias.ServiceRecord.services;
 
+import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
 import br.com.felipedias.ServiceRecord.Repository.RecordRepository;
 import br.com.felipedias.ServiceRecord.model.JobRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,9 @@ public class JobRecordService {
 
     @Autowired
     private RecordRepository recordRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
 
     public List<JobRecord> findAllRecords(){
@@ -25,8 +31,19 @@ public class JobRecordService {
         return foundRecord.get();
     }
 
-    public JobRecord insertNewRecord(JobRecord obj){
-        return recordRepository.save(obj);
+    public ResponseEntity insertNewRecord(JobRecord jobObj){
+
+        var customerId = jobObj.getCustomer().getId();
+
+        if(customerId != null){
+
+            var foundCustomer = customerRepository.findById(customerId).get();
+            foundCustomer.addJob(recordRepository.save(jobObj));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(foundCustomer);
+        }
+
+        else
+            return ResponseEntity.status(HttpStatus.CREATED).body(recordRepository.save(jobObj));
     }
 
     public JobRecord updateRecord(JobRecord jobRecordObj, Long id) {

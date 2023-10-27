@@ -39,4 +39,8 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL)
     private List<JobRecord> jobs;
 
+    public void addJob(JobRecord jobRecord){
+        jobs.add(jobRecord);
+    }
+
 }

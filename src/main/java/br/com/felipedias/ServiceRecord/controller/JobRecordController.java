@@ -29,10 +29,10 @@ public class JobRecordController {
     }
 
     @PostMapping
-    public ResponseEntity<JobRecord> insertNewRecord(@RequestBody JobRecord jobRecordObj){
+    public ResponseEntity insertNewRecord(@RequestBody JobRecord jobRecordObj){
 
-       JobRecord returnedObj = recordService.insertNewRecord(jobRecordObj);
-        return ResponseEntity.ok().body(returnedObj);
+      return recordService.insertNewRecord(jobRecordObj);
+
     }
 
     @PutMapping("/{id}")
