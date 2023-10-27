@@ -27,6 +27,19 @@ public class UserController{
        return ResponseEntity.ok().body(foundUsers);
     }
 
+    @GetMapping
+    public ResponseEntity<User> findUserByUsername(String username){
+        User foundUser = userService.findByUsername(username);
+        return ResponseEntity.ok().body(foundUser);
+    }
+
+    @PostMapping
+    public ResponseEntity addUser(@RequestBody User user){
+
+        var savedUser =  this.userService.create(user);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
 
 
 

@@ -14,7 +14,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "tb_service")
+@Table(name = "tb_job_record")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

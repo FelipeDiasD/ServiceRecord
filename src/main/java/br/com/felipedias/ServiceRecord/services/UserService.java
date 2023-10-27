@@ -19,15 +19,19 @@ public class UserService {
     public List<User> findAllUsers(){
         return userRepository.findAll();
     }
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 
-    public ResponseEntity create(@RequestBody User user) throws Exception{
+
+    public ResponseEntity create(@RequestBody User user){
 
 
         var foundUser = this.userRepository.findByUsername(user.getUsername());
 
         if(foundUser != null){
             //Throw an exception or an 400 status code
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("USUÁRIO COM A MESMA USENAME NA BASE DE DADOS");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("USUÁRIO COM A MESMA USERNAME NA BASE DE DADOS");
         }
         var userCreated = this.userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
