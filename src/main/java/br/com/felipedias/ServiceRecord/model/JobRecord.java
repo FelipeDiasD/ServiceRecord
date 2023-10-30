@@ -28,10 +28,10 @@ public class JobRecord {
     @CreationTimestamp
     private LocalDateTime createdAt;
     private LocalDateTime expectedEndDate;
-    private String status;
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
     private Status jobStatus;

@@ -38,7 +38,8 @@ public class JobRecordService {
         if(customerId != null){
 
             var foundCustomer = customerRepository.findById(customerId).get();
-            foundCustomer.addJob(recordRepository.save(jobObj));
+            var addedJob = recordRepository.save(jobObj);
+            foundCustomer.addJob(addedJob);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(foundCustomer);
         }
 

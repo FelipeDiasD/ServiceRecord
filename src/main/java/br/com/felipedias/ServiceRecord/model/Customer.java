@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,8 +37,8 @@ public class Customer {
 
     @JsonManagedReference
     @NonNull
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<JobRecord> jobs;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<JobRecord> jobs =  new ArrayList<>();
 
     public void addJob(JobRecord jobRecord){
         jobs.add(jobRecord);
