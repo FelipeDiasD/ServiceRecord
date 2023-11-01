@@ -29,7 +29,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findCustomerById(@PathVariable UUID id){
+    public ResponseEntity findCustomerById(@PathVariable UUID id) throws Exception {
         var foundCustromer = customerService.findCustomerById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(foundCustromer);

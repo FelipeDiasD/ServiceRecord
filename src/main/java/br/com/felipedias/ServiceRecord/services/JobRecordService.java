@@ -33,6 +33,10 @@ public class JobRecordService {
 
     public ResponseEntity insertNewRecord(JobRecord jobObj){
 
+        if(jobObj.getDescription() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("DESCRIÇÃO É NECESSÁRIA");
+        }
+
         var customerId = jobObj.getCustomer().getId();
 
         if(customerId != null){
@@ -42,6 +46,8 @@ public class JobRecordService {
             foundCustomer.addJob(addedJob);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(foundCustomer);
         }
+
+
 
         else
             return ResponseEntity.status(HttpStatus.CREATED).body(recordRepository.save(jobObj));

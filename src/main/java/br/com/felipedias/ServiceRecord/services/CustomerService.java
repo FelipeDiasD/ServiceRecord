@@ -1,6 +1,7 @@
 package br.com.felipedias.ServiceRecord.services;
 
 import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
+import br.com.felipedias.ServiceRecord.errors.ResourceNotFoundException;
 import br.com.felipedias.ServiceRecord.model.Customer;
 import br.com.felipedias.ServiceRecord.model.JobRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,28 +27,30 @@ public class CustomerService {
         return customerRepository.findByName(name);
     }
 
-    public Customer findCustomerById(UUID id){
-        return customerRepository.findById(id).get();
+    public Customer findCustomerById(UUID id) {
+
+            return customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+
     }
 
     public ResponseEntity addCustomer(Customer customer){
 
         //Validations
+
+        if(customer.getName() == null || customer.getName().equals("")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NOME PRECISA SER PREENCHIDO");
+        }
+
+       else if (customer.getEmail() == null || customer.getEmail().equals("")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-MAIL PRECISA SER PREENCHIDO");
+        }
+
         //IS this customer already registered?
         var email = customer.getEmail();
 
         if(customerRepository.findByEmail(email) != null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CLIENTE JÁ REGISTRADO NA PLATAFORMA");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CLIENTE COM MESMO E-MAIL JÁ REGISTRADO NA PLATAFORMA");
         }
-
-        var jobs = customer.getJobs();
-
-        for(int i = 0; i < jobs.size(); i++){
-            JobRecord job = jobs.get(i);
-            job.setCustomer(customer);
-        }
-
-
 
 
         //There is obligatory some field missing?
