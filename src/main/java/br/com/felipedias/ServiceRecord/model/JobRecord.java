@@ -8,8 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 
 
@@ -27,7 +28,7 @@ public class JobRecord {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-    private LocalDateTime expectedEndDate;
+    private LocalDate expectedEndDate;
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)

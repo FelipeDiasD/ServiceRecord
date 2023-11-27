@@ -18,7 +18,7 @@ public class JobRecordService {
     private RecordRepository recordRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
 
     public List<JobRecord> findAllRecords(){
@@ -41,16 +41,14 @@ public class JobRecordService {
 
         if(customerId != null){
 
-            var foundCustomer = customerRepository.findById(customerId).get();
+            var foundCustomer = customerService.findCustomerById(customerId);
             var addedJob = recordRepository.save(jobObj);
             foundCustomer.addJob(addedJob);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(foundCustomer);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerService.findCustomerById(customerId));
         }
 
-
-
         else
-            return ResponseEntity.status(HttpStatus.CREATED).body(recordRepository.save(jobObj));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID DO CLIENTE NECESSÁRIO");
     }
 
     public JobRecord updateRecord(JobRecord jobRecordObj, Long id) {
