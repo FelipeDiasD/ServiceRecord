@@ -7,13 +7,17 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Base64;
 
+@Component
 public class RequestFilter extends OncePerRequestFilter {
 
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -21,7 +25,9 @@ public class RequestFilter extends OncePerRequestFilter {
 
         var servletPath = request.getServletPath();
 
-        if( servletPath.startsWith("/users")){
+
+
+        if( servletPath.startsWith("/records")){
 
             var authorization = request.getHeader("Authorization");
 
@@ -36,15 +42,18 @@ public class RequestFilter extends OncePerRequestFilter {
             String password = credentials[1];
 
 
-            var user = this.userRepository.findByUsername(username);
+            var user = userRepository.findByUsername(username);
+            System.out.println(username + password);
 
             if(user == null){
                 response.sendError(401);
             }
+
             else{
+
                 var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
 
-                if(passwordVerify.verified){
+                if (passwordVerify.verified){
                     request.setAttribute("userId",user.getId());
                     filterChain.doFilter(request,response);
                 }
