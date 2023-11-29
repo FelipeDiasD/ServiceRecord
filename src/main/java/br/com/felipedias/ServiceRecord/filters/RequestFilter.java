@@ -43,7 +43,7 @@ public class RequestFilter extends OncePerRequestFilter {
 
 
             var user = userRepository.findByUsername(username);
-            System.out.println(username + password);
+
 
             if(user == null){
                 response.sendError(401);
@@ -51,9 +51,12 @@ public class RequestFilter extends OncePerRequestFilter {
 
             else{
 
-                var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+                String bcryptHashString = BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray());
+
+                var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), bcryptHashString);
 
                 if (passwordVerify.verified){
+
                     request.setAttribute("userId",user.getId());
                     filterChain.doFilter(request,response);
                 }
