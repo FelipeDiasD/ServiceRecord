@@ -34,11 +34,20 @@ public class UserController{
     }
 
     @PostMapping
-    public ResponseEntity addUser(@RequestBody User user){
+    public ResponseEntity addUser(@RequestBody User userObj){
 
-        var savedUser =  this.userService.create(user);
+        var savedUser =  this.userService.createNewUser(userObj);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity updateExistingUser(@RequestBody User userObj, @PathVariable String username){
+
+        var updatedUser = userService.updateExistingUser(username, userObj);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(updatedUser);
+
     }
 
 

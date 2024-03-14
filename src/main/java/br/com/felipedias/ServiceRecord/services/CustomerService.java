@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,11 +36,11 @@ public class CustomerService {
 
         //Validations
 
-        if(customer.getName() == null || customer.getName().equals("")){
+        if(customer.getName() == null || customer.getName().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NOME PRECISA SER PREENCHIDO");
         }
 
-       else if (customer.getEmail() == null || customer.getEmail().equals("")){
+       else if (customer.getEmail() == null || customer.getEmail().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-MAIL PRECISA SER PREENCHIDO");
         }
 
@@ -52,40 +51,37 @@ public class CustomerService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CLIENTE COM MESMO E-MAIL JÁ REGISTRADO NA PLATAFORMA");
         }
 
-
-        //There is obligatory some field missing?
         Customer receivedCustomer = customerRepository.save(customer);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(receivedCustomer);
     }
 
-    public ResponseEntity<Customer> updateCustomer(Customer customer, UUID id){
+    public ResponseEntity<Customer> updateCustomer(Customer customerObj, UUID id) {
 
-        //Find desired customer for changes
-        var targetCustomer = customerRepository.findById(id).get();
-
-        //Validations
-
-
-        //There is obligatory some field missing?
+        try {
+            //Find desired customer for changes
+            var targetCustomer = findCustomerById(id);
 
 
+            //Verify fields for change
+            //Modify existing customer with information
+            if (customerObj.getName() != null) {
+                targetCustomer.setName(customerObj.getName());
+            } else if (customerObj.getEmail() != null) {
+                targetCustomer.setEmail(customerObj.getEmail());
+            } else if (customerObj.getAddress() != null) {
+                targetCustomer.setAddress(customerObj.getAddress());
+            }
 
-        //Verify fields for change
-        //Modify existing customer with information
-        if(customer.getName() != null){
-            targetCustomer.setName(customer.getName());
+            customerRepository.save(targetCustomer);
+
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(targetCustomer);
         }
-        else if (customer.getEmail() != null) {
-            targetCustomer.setEmail(customer.getEmail());
+
+        catch (ResourceNotFoundException e){
+           
+            throw new ResourceNotFoundException(id);
         }
-        else if(customer.getAddress() != null){
-            targetCustomer.setAddress(customer.getAddress());
-        }
-
-        customerRepository.save(targetCustomer);
-
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(targetCustomer);
     }
 }

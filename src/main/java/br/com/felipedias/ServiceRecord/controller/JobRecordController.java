@@ -43,6 +43,12 @@ public class JobRecordController {
         return ResponseEntity.ok().body(updatedRecord);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteExistingRecord (@PathVariable Long id){
+
+        return recordService.deleteJobRecord(id);
+    }
+
 
 
 

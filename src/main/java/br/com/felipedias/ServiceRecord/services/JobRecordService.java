@@ -33,8 +33,12 @@ public class JobRecordService {
 
     public ResponseEntity insertNewRecord(JobRecord jobObj){
 
-        if(jobObj.getDescription() == null){
+        if(jobObj.getDescription() == null || jobObj.getDescription().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("DESCRIÇÃO É NECESSÁRIA");
+        }
+
+        else if( jobObj.getJobStatus() == null){
+
         }
 
         var customerId = jobObj.getCustomer().getId();
@@ -63,5 +67,16 @@ public class JobRecordService {
         }
 
        return recordRepository.save(targetJobRecord);
+    }
+
+    public ResponseEntity deleteJobRecord(Long id){
+        var targetJobRecord = recordRepository.findById(id).get();
+
+        if(targetJobRecord != null){
+
+            recordRepository.delete(targetJobRecord);
+        }
+
+        return ResponseEntity.accepted().body("TRABALHO DELETADO");
     }
 }
