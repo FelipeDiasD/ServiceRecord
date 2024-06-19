@@ -174,3 +174,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+###Application-Properties
+*.properties
