@@ -1,7 +1,5 @@
 package br.com.felipedias.ServiceRecord.controller;
 
-
-import br.com.felipedias.ServiceRecord.Repository.CustomerRepository;
 import br.com.felipedias.ServiceRecord.model.Customer;
 import br.com.felipedias.ServiceRecord.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,9 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity findCustomerById(@PathVariable UUID id) throws Exception {
-        var foundCustromer = customerService.findCustomerById(id);
+        var foundCustomer = customerService.findCustomerById(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body(foundCustromer);
+        return ResponseEntity.status(HttpStatus.OK).body(foundCustomer);
     }
     @PostMapping
     public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer){
